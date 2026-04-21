@@ -236,6 +236,16 @@ def resolve_requested_provider(requested: Optional[str] = None) -> str:
     if isinstance(cfg_provider, str) and cfg_provider.strip():
         return cfg_provider.strip().lower()
 
+    # Infer provider from "provider/model" prefix in the saved model name.
+    # e.g. "minimax/MiniMax-M2.7" → "minimax", "zai/glm-4.7" → "zai".
+    # This prevents auto-detection from routing a provider-prefixed model to
+    # a different provider that happens to have a key set in the environment.
+    default_model = (model_cfg.get("default") or "").strip()
+    if "/" in default_model:
+        prefix = default_model.split("/", 1)[0].strip().lower()
+        if prefix and prefix in PROVIDER_REGISTRY:
+            return prefix
+
     # Prefer the persisted config selection over any stale shell/.env
     # provider override so chat uses the endpoint the user last saved.
     env_provider = os.getenv("HERMES_INFERENCE_PROVIDER", "").strip().lower()
