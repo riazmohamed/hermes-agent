@@ -106,13 +106,18 @@ class TestMinimaxModelCatalog:
             models = _PROVIDER_MODELS[provider]
             assert "MiniMax-M1" not in models
 
-    def test_catalog_excludes_highspeed(self):
-        """Highspeed variants are available but not shown in default catalog
-        (users can still specify them manually)."""
+    def test_catalog_includes_highspeed(self):
+        """MiniMax-M2.7-highspeed is explicitly listed in the catalog."""
         from hermes_cli.models import _PROVIDER_MODELS
         for provider in ("minimax", "minimax-cn"):
             models = _PROVIDER_MODELS[provider]
-            assert "MiniMax-M2.7-highspeed" not in models
+            assert "MiniMax-M2.7-highspeed" in models
+
+    def test_catalog_excludes_m25_highspeed(self):
+        """MiniMax-M2.5-highspeed is not in the catalog."""
+        from hermes_cli.models import _PROVIDER_MODELS
+        for provider in ("minimax", "minimax-cn"):
+            models = _PROVIDER_MODELS[provider]
             assert "MiniMax-M2.5-highspeed" not in models
 
 
