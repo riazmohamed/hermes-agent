@@ -1,0 +1,2181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hermes Agent — Complete Study Guide</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --accent: #7c3aed;
+    --accent-light: #a78bfa;
+    --accent-bg: #f5f3ff;
+    --dark: #0f172a;
+    --medium: #1e293b;
+    --light: #475569;
+    --border: #e2e8f0;
+    --code-bg: #1e293b;
+    --code-text: #e2e8f0;
+    --green: #059669;
+    --blue: #2563eb;
+    --orange: #d97706;
+    --red: #dc2626;
+    --teal: #0d9488;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.7;
+    color: var(--dark);
+    background: white;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  /* ── Cover Page ── */
+  .cover {
+    page-break-after: always;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 80px 0;
+    position: relative;
+  }
+
+  .cover-badge {
+    display: inline-block;
+    background: var(--accent-bg);
+    color: var(--accent);
+    font-size: 9pt;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid #ddd6fe;
+    margin-bottom: 28px;
+  }
+
+  .cover h1 {
+    font-size: 52pt;
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: var(--dark);
+    margin-bottom: 12px;
+  }
+
+  .cover h1 span { color: var(--accent); }
+
+  .cover .subtitle {
+    font-size: 16pt;
+    font-weight: 400;
+    color: var(--light);
+    margin-bottom: 48px;
+    max-width: 580px;
+    line-height: 1.5;
+  }
+
+  .cover-divider {
+    width: 60px;
+    height: 4px;
+    background: var(--accent);
+    border-radius: 2px;
+    margin-bottom: 48px;
+  }
+
+  .cover-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 32px;
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 60px;
+  }
+
+  .cover-meta-item label {
+    font-size: 7.5pt;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--light);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .cover-meta-item span {
+    font-size: 10pt;
+    font-weight: 500;
+    color: var(--dark);
+  }
+
+  .cover-toc {
+    background: var(--accent-bg);
+    border: 1px solid #ddd6fe;
+    border-radius: 12px;
+    padding: 24px 28px;
+    width: 100%;
+  }
+
+  .cover-toc h3 {
+    font-size: 8pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+
+  .cover-toc ol {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 32px;
+  }
+
+  .cover-toc li {
+    font-size: 9.5pt;
+    color: var(--medium);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .cover-toc li::before {
+    content: attr(data-num);
+    font-size: 8pt;
+    font-weight: 700;
+    color: var(--accent);
+    background: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* ── Page Structure ── */
+  .page-section {
+    page-break-before: always;
+    padding-top: 60px;
+  }
+
+  /* ── Section Headers ── */
+  .section-header {
+    margin-bottom: 40px;
+  }
+
+  .section-label {
+    font-size: 8pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  h1.section-title {
+    font-size: 28pt;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--dark);
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+
+  .section-intro {
+    font-size: 11.5pt;
+    color: var(--light);
+    max-width: 640px;
+    line-height: 1.6;
+    border-left: 3px solid var(--accent);
+    padding-left: 16px;
+  }
+
+  /* ── Typography ── */
+  h2 {
+    font-size: 16pt;
+    font-weight: 700;
+    color: var(--dark);
+    margin: 40px 0 14px;
+    letter-spacing: -0.01em;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--border);
+  }
+
+  h2.no-border { border-bottom: none; padding-bottom: 0; }
+
+  h3 {
+    font-size: 12pt;
+    font-weight: 600;
+    color: var(--dark);
+    margin: 28px 0 10px;
+  }
+
+  h4 {
+    font-size: 10pt;
+    font-weight: 600;
+    color: var(--medium);
+    margin: 20px 0 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  p {
+    margin-bottom: 14px;
+    color: var(--medium);
+  }
+
+  strong { color: var(--dark); font-weight: 600; }
+
+  /* ── Callout Boxes ── */
+  .callout {
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin: 20px 0;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .callout-icon { font-size: 16pt; flex-shrink: 0; margin-top: 2px; }
+  .callout-content { flex: 1; }
+  .callout-content strong { display: block; margin-bottom: 4px; font-size: 10pt; }
+  .callout-content p { margin: 0; font-size: 9.5pt; }
+
+  .callout.purple { background: var(--accent-bg); border-left: 4px solid var(--accent); }
+  .callout.blue { background: #eff6ff; border-left: 4px solid var(--blue); }
+  .callout.green { background: #ecfdf5; border-left: 4px solid var(--green); }
+  .callout.orange { background: #fffbeb; border-left: 4px solid var(--orange); }
+
+  /* ── Cards ── */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .card-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin: 20px 0;
+  }
+
+  .card {
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+  }
+
+  .card.accent-border { border-top: 3px solid var(--accent); }
+  .card.green-border { border-top: 3px solid var(--green); }
+  .card.blue-border { border-top: 3px solid var(--blue); }
+  .card.orange-border { border-top: 3px solid var(--orange); }
+  .card.teal-border { border-top: 3px solid var(--teal); }
+
+  .card-icon { font-size: 22pt; margin-bottom: 10px; display: block; }
+  .card h3 { margin: 0 0 8px; font-size: 11pt; }
+  .card p { margin: 0; font-size: 9pt; color: var(--light); }
+
+  /* ── Code Blocks ── */
+  pre {
+    background: var(--code-bg);
+    color: var(--code-text);
+    border-radius: 8px;
+    padding: 16px 20px;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 8.5pt;
+    line-height: 1.6;
+    margin: 16px 0;
+    overflow-x: auto;
+  }
+
+  code {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 8.5pt;
+    background: #f1f5f9;
+    color: var(--accent);
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+
+  pre code { background: none; color: inherit; padding: 0; font-size: inherit; }
+
+  .code-comment { color: #94a3b8; }
+  .code-keyword { color: #a78bfa; }
+  .code-string { color: #86efac; }
+  .code-func { color: #60a5fa; }
+  .code-num { color: #fbbf24; }
+
+  /* ── Architecture Diagrams ── */
+  .arch-diagram {
+    background: var(--code-bg);
+    color: #94a3b8;
+    border-radius: 10px;
+    padding: 24px 28px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8pt;
+    line-height: 1.9;
+    margin: 20px 0;
+  }
+
+  .arch-diagram .arch-title {
+    color: #a78bfa;
+    font-weight: 600;
+    font-size: 8.5pt;
+    margin-bottom: 12px;
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .arch-node { color: #60a5fa; }
+  .arch-arrow { color: #6b7280; }
+  .arch-label { color: #86efac; }
+  .arch-note { color: #fbbf24; }
+
+  /* ── Tables ── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 9.5pt;
+  }
+
+  th {
+    background: var(--dark);
+    color: white;
+    font-weight: 600;
+    text-align: left;
+    padding: 10px 14px;
+    font-size: 8.5pt;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  td {
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--medium);
+    vertical-align: top;
+  }
+
+  tr:nth-child(even) td { background: #f8fafc; }
+
+  /* ── Lists ── */
+  ul, ol {
+    margin: 12px 0 16px 22px;
+    color: var(--medium);
+  }
+
+  li { margin-bottom: 6px; font-size: 9.5pt; }
+
+  .checklist { list-style: none; margin-left: 0; }
+  .checklist li { display: flex; gap: 10px; align-items: flex-start; }
+  .checklist li::before { content: "✓"; color: var(--green); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+  .feature-list { list-style: none; margin-left: 0; }
+  .feature-list li { display: flex; gap: 10px; align-items: flex-start; padding: 6px 0; border-bottom: 1px solid var(--border); }
+  .feature-list li:last-child { border-bottom: none; }
+  .feature-list li .feat-icon { flex-shrink: 0; }
+  .feature-list li .feat-text strong { display: block; font-size: 10pt; color: var(--dark); }
+  .feature-list li .feat-text span { font-size: 9pt; color: var(--light); }
+
+  /* ── Badges ── */
+  .badge {
+    display: inline-block;
+    font-size: 7.5pt;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 12px;
+    margin: 0 2px;
+  }
+
+  .badge.purple { background: var(--accent-bg); color: var(--accent); }
+  .badge.green { background: #ecfdf5; color: var(--green); }
+  .badge.blue { background: #eff6ff; color: var(--blue); }
+  .badge.orange { background: #fffbeb; color: var(--orange); }
+  .badge.teal { background: #f0fdfa; color: var(--teal); }
+  .badge.red { background: #fef2f2; color: var(--red); }
+
+  /* ── Use Case Cards ── */
+  .use-case {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px 24px;
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .use-case-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 14px;
+  }
+
+  .use-case-icon {
+    font-size: 26pt;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .use-case-title h3 { margin: 0 0 4px; font-size: 13pt; }
+  .use-case-title p { margin: 0; font-size: 9pt; color: var(--light); }
+
+  .use-case-scenarios {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 14px;
+  }
+
+  .scenario {
+    background: #f8fafc;
+    border-radius: 8px;
+    padding: 12px 14px;
+  }
+
+  .scenario strong { font-size: 9.5pt; display: block; margin-bottom: 4px; }
+  .scenario span { font-size: 8.5pt; color: var(--light); }
+
+  /* ── Flow Steps ── */
+  .flow-steps {
+    margin: 20px 0;
+  }
+
+  .flow-step {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    position: relative;
+  }
+
+  .flow-step:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: 17px;
+    top: 38px;
+    height: calc(100% + 2px);
+    width: 2px;
+    background: var(--border);
+  }
+
+  .flow-num {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: white;
+    font-weight: 700;
+    font-size: 10pt;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    z-index: 1;
+  }
+
+  .flow-content { flex: 1; padding-top: 6px; }
+  .flow-content strong { display: block; font-size: 10.5pt; margin-bottom: 4px; }
+  .flow-content p { margin: 0; font-size: 9pt; color: var(--light); }
+
+  /* ── Comparison ── */
+  .vs-table {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 20px 0;
+  }
+
+  .vs-col { padding: 20px 22px; }
+  .vs-col:first-child { border-right: 1px solid var(--border); }
+  .vs-col h4 { margin: 0 0 14px; font-size: 10pt; }
+  .vs-col ul { margin: 0; list-style: none; }
+  .vs-col ul li { padding: 5px 0; font-size: 9.5pt; display: flex; gap: 8px; }
+
+  /* ── Platform Pills ── */
+  .platform-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 14px 0;
+  }
+
+  .platform-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 8.5pt;
+    font-weight: 500;
+    color: var(--medium);
+  }
+
+  /* ── Quote ── */
+  blockquote {
+    border-left: 4px solid var(--accent);
+    background: var(--accent-bg);
+    padding: 16px 20px;
+    margin: 20px 0;
+    border-radius: 0 8px 8px 0;
+    font-size: 10.5pt;
+    color: var(--medium);
+    font-style: italic;
+  }
+
+  /* ── Print / Page breaks ── */
+  @media print {
+    body { margin: 0; padding: 0 30px; font-size: 9.5pt; }
+    .cover { min-height: 280mm; }
+    .page-section { page-break-before: always; }
+    h2 { page-break-after: avoid; }
+    h3 { page-break-after: avoid; }
+    pre { page-break-inside: avoid; }
+    .use-case { page-break-inside: avoid; }
+    .card-grid { page-break-inside: avoid; }
+    table { page-break-inside: avoid; }
+    @page { margin: 18mm 22mm; size: A4; }
+  }
+
+  /* ── Mermaid Diagram Wrappers ── */
+  .mermaid-wrap {
+    background: #1e293b;
+    border-radius: 10px;
+    padding: 20px 16px 16px;
+    margin: 20px 0;
+    overflow: hidden;
+  }
+
+  .mermaid-wrap .diag-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8pt;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #a78bfa;
+    margin-bottom: 14px;
+    display: block;
+  }
+
+  .mermaid { text-align: center; }
+  .mermaid svg { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+
+  /* Force readable white text inside Mermaid nodes — Mermaid 11 theme CSS wins otherwise */
+  .mermaid .nodeLabel,
+  .mermaid .nodeLabel p,
+  .mermaid svg foreignObject div,
+  .mermaid svg foreignObject p {
+    color: #ffffff !important;
+  }
+  /* Subgraph cluster titles stay in accent purple */
+  .mermaid .cluster-label span,
+  .mermaid .cluster-label p {
+    color: #c4b5fd !important;
+  }
+
+  /* ── TOC Links ── */
+  .cover-toc a {
+    color: var(--medium);
+    text-decoration: none;
+  }
+  .cover-toc a:hover {
+    color: var(--accent);
+    text-decoration: underline;
+  }
+
+  /* ── Footer ── */
+  .doc-footer {
+    margin-top: 60px;
+    padding: 24px 0;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 8.5pt;
+    color: var(--light);
+  }
+
+  /* ── Highlight band ── */
+  .highlight-band {
+    background: linear-gradient(135deg, var(--accent-bg) 0%, #eff6ff 100%);
+    border: 1px solid #ddd6fe;
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin: 24px 0;
+  }
+
+  .highlight-band h3 { margin-top: 0; color: var(--accent); }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════ COVER ═══ -->
+<div class="cover">
+  <span class="cover-badge">Complete Study Guide · April 2026</span>
+  <h1>Hermes<br><span>Agent</span></h1>
+  <p class="subtitle">A self-improving AI agent with a closed learning loop — built for developers, businesses, and content creators alike.</p>
+  <div class="cover-divider"></div>
+
+  <div class="cover-meta">
+    <div class="cover-meta-item">
+      <label>Project</label>
+      <span>Hermes Agent v0.10.0</span>
+    </div>
+    <div class="cover-meta-item">
+      <label>Built by</label>
+      <span>Nous Research</span>
+    </div>
+    <div class="cover-meta-item">
+      <label>License</label>
+      <span>MIT Open Source</span>
+    </div>
+  </div>
+
+  <div class="cover-toc">
+    <h3>Contents</h3>
+    <ol>
+      <li data-num="1"><a href="#section-1">What is Hermes Agent?</a></li>
+      <li data-num="2"><a href="#section-2">Core Concepts (Non-Technical)</a></li>
+      <li data-num="3"><a href="#section-3">How It Works — The Agent Loop</a></li>
+      <li data-num="4"><a href="#section-4">Architecture Deep Dive</a></li>
+      <li data-num="5"><a href="#section-5">The Tool Ecosystem</a></li>
+      <li data-num="6"><a href="#section-6">Memory &amp; Learning System</a></li>
+      <li data-num="7"><a href="#section-7">Multi-Platform Gateway</a></li>
+      <li data-num="8"><a href="#section-8">Business Use Cases</a></li>
+      <li data-num="9"><a href="#section-9">Content Creator Use Cases</a></li>
+      <li data-num="10"><a href="#section-10">Developer Guide &amp; Getting Started</a></li>
+    </ol>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════ SECTION 1 ═══ -->
+<div id="section-1" class="page-section">
+  <div class="section-header">
+    <span class="section-label">Section 1</span>
+    <h1 class="section-title">What is Hermes Agent?</h1>
+    <p class="section-intro">A plain-English overview of the project, its purpose, and why it matters — no technical background required.</p>
+  </div>
+
+  <h2>The Big Picture</h2>
+
+  <p>Hermes Agent is an <strong>open-source AI assistant framework</strong> built by Nous Research. Think of it as the engine behind a personal AI assistant that you own, control, and deploy anywhere — on your laptop, in a Docker container, on a remote server, or even as a serverless cloud function.</p>
+
+  <p>Unlike ChatGPT or Claude, which are services you access through a web browser, Hermes Agent is <strong>software you run yourself</strong>. You choose which AI model powers it (OpenAI, Anthropic Claude, Google Gemini, or any open-source model), where it runs, and what it can do.</p>
+
+  <div class="callout purple">
+    <span class="callout-icon">💡</span>
+    <div class="callout-content">
+      <strong>The Key Analogy</strong>
+      <p>If ChatGPT is like renting an apartment (you use it but don't own it), Hermes Agent is like owning a house. You have full control: choose the layout, add rooms (tools/skills), and it gets smarter the longer you live there.</p>
+    </div>
+  </div>
+
+  <h2>What Makes It Special?</h2>
+
+  <div class="card-grid">
+    <div class="card accent-border">
+      <span class="card-icon">🧠</span>
+      <h3>It Learns From You</h3>
+      <p>Unlike most AI tools that forget everything between conversations, Hermes builds a persistent memory of who you are, your preferences, and your past work sessions.</p>
+    </div>
+    <div class="card green-border">
+      <span class="card-icon">🛠️</span>
+      <h3>It Can Take Action</h3>
+      <p>Not just a chatbot — Hermes can browse the web, write and run code, manage files, send messages, schedule tasks, and control your computer through 40+ built-in tools.</p>
+    </div>
+    <div class="card blue-border">
+      <span class="card-icon">📚</span>
+      <h3>It Creates Its Own Skills</h3>
+      <p>When Hermes solves a complex problem, it can save the solution as a reusable "skill" — so next time, it can do the same task faster and better without starting from scratch.</p>
+    </div>
+    <div class="card orange-border">
+      <span class="card-icon">🌐</span>
+      <h3>It Lives Everywhere</h3>
+      <p>Chat with it via terminal, a web browser, Telegram, Discord, Slack, WhatsApp, or Signal. One agent, any interface — it works the same wherever you reach it.</p>
+    </div>
+  </div>
+
+  <h2>The "Closed Learning Loop" Explained Simply</h2>
+
+  <p>Most AI assistants work like this: you ask a question → they answer → they forget. Every conversation starts fresh. Hermes is different because it has a <strong>closed learning loop</strong>:</p>
+
+  <div class="flow-steps">
+    <div class="flow-step">
+      <div class="flow-num">1</div>
+      <div class="flow-content">
+        <strong>You give Hermes a task</strong>
+        <p>e.g., "Research the top 5 competitors in our market and write a report."</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">2</div>
+      <div class="flow-content">
+        <strong>Hermes completes the task using its tools</strong>
+        <p>It searches the web, reads articles, synthesises the information, and writes the report.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">3</div>
+      <div class="flow-content">
+        <strong>It saves what it learned as a "skill"</strong>
+        <p>The exact steps it followed are saved so next time you ask for competitor research, it's instant.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">4</div>
+      <div class="flow-content">
+        <strong>It updates your user profile</strong>
+        <p>It remembers you prefer bullet-point summaries with links, not long paragraphs — and applies this preference automatically.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">5</div>
+      <div class="flow-content">
+        <strong>Next session, it's smarter</strong>
+        <p>Memory + skills from past sessions are loaded in, so it picks up exactly where you left off.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>Who Is It For?</h2>
+
+  <div class="card-grid-3">
+    <div class="card">
+      <span class="card-icon">👩‍💻</span>
+      <h3>Developers</h3>
+      <p>Build AI-powered workflows, automate DevOps tasks, do code reviews, and extend Hermes with custom tools and skills.</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">🏢</span>
+      <h3>Businesses</h3>
+      <p>Deploy private AI assistants that integrate with your existing tools (Slack, email, databases) without sending data to third-party services.</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">🎨</span>
+      <h3>Content Creators</h3>
+      <p>Automate content research, drafting, scheduling, and distribution across multiple platforms — all from a single AI assistant.</p>
+    </div>
+  </div>
+
+  <div class="callout green">
+    <span class="callout-icon">🔓</span>
+    <div class="callout-content">
+      <strong>Open Source &amp; Self-Hosted</strong>
+      <p>The full source code is available on GitHub under the MIT license. You can inspect every line, modify it, and run it entirely on your own infrastructure — your data never leaves your machines unless you choose it to.</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════ SECTION 2 ═══ -->
+<div id="section-2" class="page-section">
+  <div class="section-header">
+    <span class="section-label">Section 2</span>
+    <h1 class="section-title">Core Concepts (Non-Technical)</h1>
+    <p class="section-intro">Understanding the building blocks of Hermes without needing to know how to code.</p>
+  </div>
+
+  <h2>The Five Pillars of Hermes</h2>
+
+  <ul class="feature-list">
+    <li>
+      <span class="feat-icon">🤖</span>
+      <div class="feat-text">
+        <strong>The Agent — The Brain</strong>
+        <span>The core AI that understands your requests, plans what to do, uses tools to get things done, and crafts your final answer. Think of it as a very capable AI employee who can delegate tasks to specialists.</span>
+      </div>
+    </li>
+    <li>
+      <span class="feat-icon">🔧</span>
+      <div class="feat-text">
+        <strong>Tools — The Hands</strong>
+        <span>Specific capabilities the agent can use: searching the web, running code, reading/writing files, sending messages, browsing websites, generating images, and more. The agent picks the right tools for each task automatically.</span>
+      </div>
+    </li>
+    <li>
+      <span class="feat-icon">📖</span>
+      <div class="feat-text">
+        <strong>Skills — The Playbook</strong>
+        <span>Saved, reusable workflows for tasks you do repeatedly. Skills are like recipes — once written, you can run them with a single command (e.g., <code>/competitor-research</code>). Hermes ships with 27 categories of built-in skills.</span>
+      </div>
+    </li>
+    <li>
+      <span class="feat-icon">🧩</span>
+      <div class="feat-text">
+        <strong>Memory — The Long-Term Knowledge Store</strong>
+        <span>Hermes can remember facts, preferences, past conversations, and project context across sessions. Unlike standard chatbots, it won't ask you the same questions twice.</span>
+      </div>
+    </li>
+    <li>
+      <span class="feat-icon">🌉</span>
+      <div class="feat-text">
+        <strong>Gateway — The Delivery System</strong>
+        <span>The layer that lets you interact with Hermes from any messaging app (Telegram, Slack, Discord, WhatsApp, etc.) or interface (web, terminal, IDE). One AI brain, many access points.</span>
+      </div>
+    </li>
+  </ul>
+
+  <h2>How Conversations Work — Simply Put</h2>
+
+  <div class="callout blue">
+    <span class="callout-icon">💬</span>
+    <div class="callout-content">
+      <strong>Imagine you're texting a very capable assistant on Telegram:</strong>
+      <p>You send: <em>"Find me the latest papers on transformer efficiency and summarise them."</em><br>
+      Behind the scenes, Hermes searches the web for papers, reads the key ones, compares findings, writes a clear summary, and sends it back. All in one message thread — no switching apps, no copy-pasting.</p>
+    </div>
+  </div>
+
+  <h2>Providers vs. Models — What's the Difference?</h2>
+
+  <p>Hermes is <strong>model-agnostic</strong>, meaning it doesn't care which AI model does the thinking — it can work with any of them:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Provider</th>
+        <th>Example Models</th>
+        <th>Best For</th>
+        <th>Cost</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Anthropic</strong></td>
+        <td>Claude Sonnet/Opus</td>
+        <td>Reasoning, writing, code</td>
+        <td>Paid API</td>
+      </tr>
+      <tr>
+        <td><strong>OpenAI</strong></td>
+        <td>GPT-4o, o3</td>
+        <td>General purpose</td>
+        <td>Paid API</td>
+      </tr>
+      <tr>
+        <td><strong>Google</strong></td>
+        <td>Gemini 2.0 Pro</td>
+        <td>Multimodal, large context</td>
+        <td>Paid API</td>
+      </tr>
+      <tr>
+        <td><strong>Ollama / Local</strong></td>
+        <td>Llama 3, Mistral, Qwen</td>
+        <td>Privacy, free, offline</td>
+        <td>Free</td>
+      </tr>
+      <tr>
+        <td><strong>OpenRouter</strong></td>
+        <td>Any of the above</td>
+        <td>Cost optimisation</td>
+        <td>Variable</td>
+      </tr>
+      <tr>
+        <td><strong>AWS Bedrock</strong></td>
+        <td>Claude on AWS</td>
+        <td>Enterprise compliance</td>
+        <td>Pay-per-use</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>You can switch models on the fly with a single command — your tools, skills, and memory all stay intact. Think of it like upgrading the "engine" in your car without needing a new car.</p>
+
+  <h2>The Skills Library — Your Expanding Toolkit</h2>
+
+  <p>Hermes ships with <strong>27 categories of built-in skills</strong> covering everything from GitHub workflows to creative content generation. You can also install community skills or write your own.</p>
+
+  <div class="card-grid-3">
+    <div class="card">
+      <h3>🔬 Research</h3>
+      <p>Academic paper discovery, literature reviews, competitive intelligence</p>
+    </div>
+    <div class="card">
+      <h3>💻 Dev Tools</h3>
+      <p>Code review, GitHub workflows, deployment pipelines</p>
+    </div>
+    <div class="card">
+      <h3>📱 Social Media</h3>
+      <p>Post scheduling, content repurposing, analytics collection</p>
+    </div>
+    <div class="card">
+      <h3>🎨 Creative</h3>
+      <p>Art generation prompts, music composition, storyboarding</p>
+    </div>
+    <div class="card">
+      <h3>📊 Data Science</h3>
+      <p>Jupyter notebooks, data analysis, visualisation</p>
+    </div>
+    <div class="card">
+      <h3>🏠 Home Automation</h3>
+      <p>Home Assistant integration, smart device control</p>
+    </div>
+    <div class="card">
+      <h3>✅ Productivity</h3>
+      <p>Task management, meeting notes, email drafting</p>
+    </div>
+    <div class="card">
+      <h3>🔐 Security</h3>
+      <p>Security audits, penetration testing (opt-in)</p>
+    </div>
+    <div class="card">
+      <h3>🍎 Apple / macOS</h3>
+      <p>iMessage integration, macOS automation</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════ SECTION 3 ═══ -->
+<div id="section-3" class="page-section">
+  <div class="section-header">
+    <span class="section-label">Section 3</span>
+    <h1 class="section-title">How It Works — The Agent Loop</h1>
+    <p class="section-intro">The technical heartbeat of Hermes: the conversation and tool-calling loop that drives everything.</p>
+  </div>
+
+  <h2>The Core Loop (Technical)</h2>
+
+  <p>Every interaction with Hermes runs through the <strong>AIAgent class</strong> defined in <code>run_agent.py</code>. This is the engine — roughly 12,000 lines of Python that orchestrate context, tool calls, provider communication, and response streaming.</p>
+
+  <div class="mermaid-wrap">
+    <span class="diag-title">The Hermes Conversation Loop</span>
+    <div class="mermaid">
+flowchart TD
+    A(["💬 User Message"])
+    B["🔧 Context Assembly<br/>System Prompt · Memory · Skills · History"]
+    C["🤖 LLM API Call<br/>Anthropic · OpenAI · Gemini · Bedrock"]
+    D{"Response?"}
+    E(["✅ Return to User"])
+    F["⚡ Execute Tool<br/>web_search · terminal · read_file · browser"]
+    G["📋 Tool Result"]
+    A --> B --> C --> D
+    D -- "📝 Text Response" --> E
+    D -- "🔧 Tool Call" --> F
+    F --> G
+    G -- "↺ loop back" --> C
+    style A fill:#2563eb,stroke:none,color:#fff
+    style B fill:#7c3aed,stroke:none,color:#fff
+    style C fill:#6d28d9,stroke:none,color:#fff
+    style D fill:#1e3a5f,stroke:#4b5563,color:#a78bfa
+    style E fill:#059669,stroke:none,color:#fff
+    style F fill:#0d9488,stroke:none,color:#fff
+    style G fill:#0f766e,stroke:none,color:#fff
+    </div>
+  </div>
+
+  <h3>Step-by-Step Breakdown</h3>
+
+  <div class="flow-steps">
+    <div class="flow-step">
+      <div class="flow-num">1</div>
+      <div class="flow-content">
+        <strong>Context Assembly</strong>
+        <p>Before sending anything to the AI model, Hermes builds a "context package" consisting of: a dynamic system prompt, relevant memories from past sessions, any active skills, the current conversation history, and optional context files (documents you've loaded). Token budgeting ensures this never exceeds the model's context window.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">2</div>
+      <div class="flow-content">
+        <strong>LLM API Call</strong>
+        <p>The assembled context is sent to whatever AI model is configured. The model receives a list of "tool schemas" — descriptions of every available tool including what it does and what parameters it accepts. The model can then decide to either reply directly or call one or more tools.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">3</div>
+      <div class="flow-content">
+        <strong>Tool Execution (if needed)</strong>
+        <p>If the model decides to use a tool, Hermes parses the tool call, validates the parameters, executes the tool (e.g., runs a web search, executes code, reads a file), and appends the result back to the conversation. The model then sees the result and decides: reply now, or call another tool?</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">4</div>
+      <div class="flow-content">
+        <strong>Loop Until Done</strong>
+        <p>The tool-calling loop repeats until the model produces a text-only response (no more tool calls). There's a configurable maximum iteration limit (default: 90 turns) to prevent runaway loops.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">5</div>
+      <div class="flow-content">
+        <strong>Response + Memory Update</strong>
+        <p>The final text response is streamed back to the user. Optionally, the session is saved to SQLite with full-text search indexing so past conversations can be recalled in future sessions.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>The Context Budget System</h2>
+
+  <p>Every AI model has a "context window" — a maximum amount of text it can process at once. Hermes manages this carefully through the <strong>context compressor</strong> (<code>agent/context_compressor.py</code>):</p>
+
+  <div class="callout orange">
+    <span class="callout-icon">⚖️</span>
+    <div class="callout-content">
+      <strong>How Token Budgeting Works</strong>
+      <p>When the conversation approaches the model's context limit, Hermes automatically summarises older messages, keeping the most recent context intact. This allows conversations to run indefinitely without losing coherence. The user never has to manually manage this — it happens silently in the background.</p>
+    </div>
+  </div>
+
+  <h2>Extended Thinking (Reasoning Mode)</h2>
+
+  <p>For Anthropic Claude models, Hermes supports <strong>extended thinking</strong> — a mode where the model explicitly reasons through a problem before answering. This is stored in the message history as "reasoning blocks" and gives you visibility into how the AI arrived at its answer.</p>
+
+  <pre><code><span class="code-comment"># Example: Extended thinking stored in message history</span>
+{
+  <span class="code-string">"role"</span>: <span class="code-string">"assistant"</span>,
+  <span class="code-string">"reasoning"</span>: <span class="code-string">"Let me think through this step by step..."</span>,
+  <span class="code-string">"content"</span>: <span class="code-string">"Based on my analysis, the answer is..."</span>
+}</code></pre>
+
+  <h2>Parallel Tool Execution</h2>
+
+  <p>Hermes can run multiple tools simultaneously using the <code>delegate_task</code> tool, which spawns <strong>sub-agents</strong>. For example, when researching a topic, it might concurrently search five different web sources, read three files, and check a database — all at the same time, dramatically reducing wait times.</p>
+
+  <div class="mermaid-wrap">
+    <span class="diag-title">Parallel Sub-Agent Execution</span>
+    <div class="mermaid">
+flowchart TD
+    M["🧠 Main Agent"]
+    A["🌐 Sub-Agent A<br/>web_search"]
+    B["📁 Sub-Agent B<br/>read_file"]
+    C["💻 Sub-Agent C<br/>execute_code"]
+    R(["🎯 Aggregate Results — Final Response"])
+    M -- "parallel" --> A
+    M -- "parallel" --> B
+    M -- "parallel" --> C
+    A --> R
+    B --> R
+    C --> R
+    style M fill:#7c3aed,stroke:none,color:#fff
+    style A fill:#2563eb,stroke:none,color:#fff
+    style B fill:#0d9488,stroke:none,color:#fff
+    style C fill:#d97706,stroke:none,color:#fff
+    style R fill:#059669,stroke:none,color:#fff
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════ SECTION 4 ═══ -->
+<div id="section-4" class="page-section">
+  <div class="section-header">
+    <span class="section-label">Section 4</span>
+    <h1 class="section-title">Architecture Deep Dive</h1>
+    <p class="section-intro">The complete system architecture — from Python core to TypeScript TUI to messaging gateway.</p>
+  </div>
+
+  <h2>System Overview</h2>
+
+  <div class="mermaid-wrap">
+    <span class="diag-title">Hermes Agent — Full System Architecture</span>
+    <div class="mermaid">
+flowchart TD
+    subgraph UI ["🖥️  User Interfaces"]
+        CLI["Terminal CLI<br/>cli.py"]
+        TUI["TUI Ink/React<br/>ui-tui/"]
+        WEB["Web UI<br/>web/"]
+        MSG["Messaging Apps<br/>Telegram · Slack · Discord"]
+    end
+    subgraph ENTRY ["🚦  Entry and Routing Layer"]
+        MAIN["hermes_cli/main.py"]
+        GW["gateway/run.py"]
+        ACP["acp_adapter/"]
+    end
+    subgraph CORE ["⚙️  Core Agent Engine"]
+        AGENT["run_agent.py — AIAgent<br/>Context Assembly · LLM Call · Tool Dispatch · Response"]
+    end
+    subgraph SUP ["🧩  Supporting Modules"]
+        AGT["agent/<br/>Adapters · Compressor · Caching · Prompt Builder"]
+        TOOLS["tools/<br/>40+ tools · Registry · Environments"]
+        STATE["hermes_state.py<br/>SQLite FTS5 Session Store"]
+    end
+    subgraph LLM ["🤖  LLM Providers"]
+        PROV["Anthropic · OpenAI · Gemini · Bedrock · Ollama"]
+    end
+    UI --> ENTRY --> CORE --> SUP
+    CORE --> LLM
+    LLM --> CORE
+    style CLI fill:#7c3aed,stroke:none,color:#fff
+    style TUI fill:#7c3aed,stroke:none,color:#fff
+    style WEB fill:#7c3aed,stroke:none,color:#fff
+    style MSG fill:#7c3aed,stroke:none,color:#fff
+    style MAIN fill:#2563eb,stroke:none,color:#fff
+    style GW fill:#2563eb,stroke:none,color:#fff
+    style ACP fill:#2563eb,stroke:none,color:#fff
+    style AGENT fill:#6d28d9,stroke:#a78bfa,stroke-width:2px,color:#fff
+    style AGT fill:#0d9488,stroke:none,color:#fff
+    style TOOLS fill:#0d9488,stroke:none,color:#fff
+    style STATE fill:#0d9488,stroke:none,color:#fff
+    style PROV fill:#059669,stroke:none,color:#fff
+    </div>
+  </div>
+
+  <h2>The Six Major Components</h2>
+
+  <h3>1. Core Agent Engine — <code>run_agent.py</code></h3>
+  <p>The ~12,000-line <code>AIAgent</code> class is the heart of the system. It manages the entire conversation lifecycle: building context, calling the LLM, dispatching tool calls, handling retries, and streaming responses. Key sub-systems it orchestrates:</p>
+  <ul>
+    <li><strong>Prompt Builder</strong> (<code>agent/prompt_builder.py</code>) — Assembles the system prompt dynamically based on enabled tools, active skills, memory context, and user preferences</li>
+    <li><strong>Context Compressor</strong> (<code>agent/context_compressor.py</code>) — Automatically summarises old messages when approaching the token limit</li>
+    <li><strong>Prompt Caching</strong> (<code>agent/prompt_caching.py</code>) — Caches the system prompt for Anthropic models to reduce API costs by up to 80%</li>
+    <li><strong>Credential Pool</strong> (<code>agent/credential_pool.py</code>) — Manages API keys across multiple providers, supporting rotation and fallback</li>
+  </ul>
+
+  <h3>2. Tool System — <code>tools/</code></h3>
+  <p>65 Python files implementing 40+ tools, each self-registering via a central registry pattern:</p>
+
+  <pre><code><span class="code-comment"># How every tool registers itself (tools/web_tools.py)</span>
+<span class="code-keyword">from</span> tools.registry <span class="code-keyword">import</span> registry
+
+<span class="code-func">@registry.register</span>(
+    name=<span class="code-string">"web_search"</span>,
+    description=<span class="code-string">"Search the web for current information"</span>,
+    parameters={<span class="code-string">"query"</span>: {<span class="code-string">"type"</span>: <span class="code-string">"string"</span>}}
+)
+<span class="code-keyword">async def</span> <span class="code-func">web_search</span>(query: str) -> str:
+    <span class="code-comment"># Implementation...</span>
+    ...</code></pre>
+
+  <h3>3. Terminal Backends — <code>tools/environments/</code></h3>
+  <p>The terminal tool is backend-agnostic — the same tool code works across six different execution environments:</p>
+
+  <table>
+    <thead>
+      <tr><th>Backend</th><th>How It Works</th><th>Best For</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Local</strong></td><td>PTY (pseudo-terminal) directly on host OS</td><td>Development, personal use</td></tr>
+      <tr><td><strong>Docker</strong></td><td>Spins up isolated containers per session</td><td>Security, reproducibility</td></tr>
+      <tr><td><strong>SSH</strong></td><td>Remote execution on any SSH-accessible server</td><td>DevOps, remote management</td></tr>
+      <tr><td><strong>Modal</strong></td><td>Serverless functions, hibernates when idle</td><td>Cost-efficient cloud usage</td></tr>
+      <tr><td><strong>Daytona</strong></td><td>Persistent cloud dev environments</td><td>Team collaboration</td></tr>
+      <tr><td><strong>Singularity</strong></td><td>HPC-grade containers</td><td>Scientific computing</td></tr>
+    </tbody>
+  </table>
+
+  <h3>4. CLI Architecture — <code>cli.py</code> + <code>hermes_cli/</code></h3>
+  <p>The interactive terminal experience is built with:</p>
+  <ul>
+    <li><strong>Rich</strong> — Beautiful terminal formatting: tables, panels, syntax-highlighted code, progress bars</li>
+    <li><strong>prompt_toolkit</strong> — Advanced input handling: multi-line editing, tab completion, keyboard shortcuts, command history</li>
+    <li><strong>KawaiiSpinner</strong> — Animated ASCII art displayed while waiting for AI responses</li>
+    <li><strong>Skin Engine</strong> — Data-driven theming: 4 built-in skins (default, ares, mono, slate), fully customisable</li>
+  </ul>
+
+  <h3>5. TUI Architecture — <code>ui-tui/</code> + <code>tui_gateway/</code></h3>
+  <p>The Terminal UI is a hybrid system: a TypeScript/React frontend talking to a Python backend over JSON-RPC:</p>
+
+  <div class="mermaid-wrap">
+    <span class="diag-title">TUI Architecture</span>
+    <div class="mermaid">
+flowchart TD
+    subgraph NODE ["⚛️  React + Ink — TypeScript / Node"]
+        APP["app.tsx<br/>State Machine and UI"]
+        GWC["gatewayClient.ts<br/>JSON-RPC Bridge"]
+    end
+    RPC[/"📡  JSON-RPC over stdio"/]
+    subgraph PY ["🐍  tui_gateway — Python"]
+        SRV["server.py — RPC Handlers"]
+        SW["slash_worker.py — HermesCLI subprocess"]
+    end
+    AGT(["🧠  AIAgent + Tools + Sessions"])
+    NODE <--> RPC
+    RPC <--> PY
+    PY --> AGT
+    style APP fill:#7c3aed,stroke:none,color:#fff
+    style GWC fill:#7c3aed,stroke:none,color:#fff
+    style SRV fill:#2563eb,stroke:none,color:#fff
+    style SW fill:#2563eb,stroke:none,color:#fff
+    style RPC fill:#334155,stroke:#a78bfa,stroke-width:2px,color:#fff
+    style AGT fill:#059669,stroke:none,color:#fff
+    </div>
+  </div>
+
+  <h3>6. Messaging Gateway — <code>gateway/</code></h3>
+  <p>A single <code>GatewayRunner</code> manages up to 29 messaging platforms simultaneously. Each platform has a dedicated adapter translating platform-specific message formats to/from the common internal format. The gateway maintains an LRU cache of up to 128 active <code>AIAgent</code> instances — one per user/channel session — and evicts idle sessions after 1 hour.</p>
+
+  <h2>Data Flow: From Telegram Message to AI Response</h2>
+
+  <div class="flow-steps">
+    <div class="flow-step">
+      <div class="flow-num">1</div>
+      <div class="flow-content">
+        <strong>Message Arrives via Telegram API</strong>
+        <p>The Telegram adapter in <code>gateway/platforms/telegram/</code> receives a webhook event and parses the message text, sender ID, and chat ID.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">2</div>
+      <div class="flow-content">
+        <strong>Session Lookup</strong>
+        <p>The gateway looks up or creates an <code>AIAgent</code> instance for this sender, restoring their conversation history from SQLite.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">3</div>
+      <div class="flow-content">
+        <strong>Agent Loop</strong>
+        <p>The message is passed to the <code>AIAgent</code>, which runs the full conversation loop (context assembly → LLM → tools → response).</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">4</div>
+      <div class="flow-content">
+        <strong>Platform-Specific Formatting</strong>
+        <p>The response is formatted for Telegram's Markdown variant (different from Slack's or Discord's) and any length limits are handled.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">5</div>
+      <div class="flow-content">
+        <strong>Message Sent + Session Saved</strong>
+        <p>The formatted response is sent via Telegram API, and the session state (including new messages) is persisted to SQLite for the next turn.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>Configuration System</h2>
+
+  <p>Hermes uses a layered configuration system. All settings live in <code>~/.hermes/config.yaml</code>. The interactive setup wizard (<code>hermes setup</code>) guides you through the initial configuration:</p>
+
+  <pre><code><span class="code-comment"># ~/.hermes/config.yaml — example configuration</span>
+model:
+  default: <span class="code-string">"anthropic/claude-sonnet-4-6"</span>
+  auxiliary: <span class="code-string">"anthropic/claude-haiku-4-5"</span>  <span class="code-comment"># for quick tasks</span>
+
+tools:
+  enabled:
+    - web_search
+    - terminal
+    - read_file
+    - write_file
+    - browser_navigate
+  terminal_backend: <span class="code-string">"local"</span>  <span class="code-comment"># or docker, ssh, modal...</span>
+
+memory:
+  backend: <span class="code-string">"honcho"</span>  <span class="code-comment"># user profiling</span>
+  session_search: <span class="code-keyword">true</span>
+
+display:
+  skin: <span class="code-string">"default"</span>  <span class="code-comment"># or ares, mono, slate</span>
+  streaming: <span class="code-keyword">true</span></code></pre>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════ SECTION 5 ═══ -->
+<div id="section-5" class="page-section">
+  <div class="section-header">
+    <span class="section-label">Section 5</span>
+    <h1 class="section-title">The Tool Ecosystem</h1>
+    <p class="section-intro">Every capability Hermes can exercise — the 40+ tools that give the agent its "hands".</p>
+  </div>
+
+  <h2>Tool Categories</h2>
+
+  <h3>🌐 Web &amp; Research Tools</h3>
+  <table>
+    <thead><tr><th>Tool</th><th>What It Does</th><th>Powered By</th></tr></thead>
+    <tbody>
+      <tr><td><code>web_search</code></td><td>Search the web and get structured results</td><td>Exa, Parallel search</td></tr>
+      <tr><td><code>web_extract</code></td><td>Extract full content from any URL</td><td>Firecrawl, httpx</td></tr>
+      <tr><td><code>browser_navigate</code></td><td>Control a real browser (click, type, scroll)</td><td>Browserbase</td></tr>
+      <tr><td><code>browser_snapshot</code></td><td>Take screenshot or read page accessibility tree</td><td>Browserbase</td></tr>
+    </tbody>
+  </table>
+
+  <h3>💻 Code &amp; System Tools</h3>
+  <table>
+    <thead><tr><th>Tool</th><th>What It Does</th></tr></thead>
+    <tbody>
+      <tr><td><code>terminal</code></td><td>Execute shell commands in configured environment (local/Docker/SSH/Modal)</td></tr>
+      <tr><td><code>execute_code</code></td><td>Run Python/JS/bash code in an isolated sandbox with output capture</td></tr>
+      <tr><td><code>process</code></td><td>Start, monitor, and stop background processes</td></tr>
+    </tbody>
+  </table>
+
+  <h3>📁 File Management Tools</h3>
+  <table>
+    <thead><tr><th>Tool</th><th>What It Does</th></tr></thead>
+    <tbody>
+      <tr><td><code>read_file</code></td><td>Read any file (text, code, PDF, CSV) with smart chunking for large files</td></tr>
+      <tr><td><code>write_file</code></td><td>Create or overwrite files, with optional diff preview</td></tr>
+      <tr><td><code>patch</code></td><td>Apply targeted edits to existing files (like a surgical find-and-replace)</td></tr>
+      <tr><td><code>search_files</code></td><td>Search across files using regex or fuzzy matching</td></tr>
+    </tbody>
+  </table>
+
+  <h3>🧠 Memory &amp; Knowledge Tools</h3>
+  <table>
+    <thead><tr><th>Tool</th><th>What It Does</th></tr></thead>
+    <tbody>
+      <tr><td><code>memory</code></td><td>Store and retrieve persistent facts, preferences, and notes</td></tr>
+      <tr><td><code>session_search</code></td><td>Full-text search across all past conversation sessions</td></tr>
+      <tr><td><code>todo</code></td><td>Agent-level task list that persists across the conversation</td></tr>
+    </tbody>
+  </table>
+
+  <h3>🎨 Creative &amp; Media Tools</h3>
+  <table>
+    <thead><tr><th>Tool</th><th>What It Does</th></tr></thead>
+    <tbody>
+      <tr><td><code>vision_analyze</code></td><td>Analyse images, screenshots, or documents (using an auxiliary vision model)</td></tr>
+      <tr><td><code>image_generate</code></td><td>Generate images from text prompts using configured image generation APIs</td></tr>
+      <tr><td><code>text_to_speech</code></td><td>Convert text to audio (edge-tts for free, ElevenLabs for premium)</td></tr>
+    </tbody>
+  </table>
+
+  <h3>🔄 Orchestration &amp; Automation Tools</h3>
+  <table>
+    <thead><tr><th>Tool</th><th>What It Does</th></tr></thead>
+    <tbody>
+      <tr><td><code>delegate_task</code></td><td>Spawn parallel sub-agents to handle independent sub-tasks concurrently</td></tr>
+      <tr><td><code>cronjob</code></td><td>Schedule tasks to run at specific times or intervals (cron expressions)</td></tr>
+      <tr><td><code>send_message</code></td><td>Send messages to users on any configured platform (Telegram, Slack, etc.)</td></tr>
+      <tr><td><code>clarify</code></td><td>Ask the user a clarifying question mid-task without breaking the flow</td></tr>
+    </tbody>
+  </table>
+
+  <h3>🏠 Home Automation Tools</h3>
+  <p>A dedicated set of <code>ha_*</code> tools for Home Assistant integration: control lights, check sensors, run automations, and query device states — all from a conversational interface.</p>
+
+  <h2>The Tool Registry Pattern</h2>
+
+  <p>All tools follow the same self-registration pattern. When <code>run_agent.py</code> starts, it imports all files in <code>tools/</code> — each file calls <code>registry.register()</code> at import time. The result is a dynamic tool catalogue that can be extended simply by dropping a new Python file in the <code>tools/</code> directory.</p>
+
+  <div class="callout blue">
+    <span class="callout-icon">🔌</span>
+    <div class="callout-content">
+      <strong>Extending Hermes with Custom Tools</strong>
+      <p>Adding a new tool requires writing a single Python function decorated with <code>@registry.register()</code>. No changes needed to any other file. The tool automatically appears in the LLM's tool catalogue on the next restart.</p>
+    </div>
+  </div>
+
+  <h2>Dangerous Command Detection</h2>
+
+  <p>The <code>tools/approval.py</code> module contains a safeguard layer that detects potentially destructive terminal commands (e.g., <code>rm -rf</code>, <code>DROP TABLE</code>, <code>format</code>) and pauses execution to request human approval before proceeding. This is a critical safety mechanism for autonomous workflows.</p>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════ SECTION 6 ═══ -->
+<div id="section-6" class="page-section">
+  <div class="section-header">
+    <span class="section-label">Section 6</span>
+    <h1 class="section-title">Memory &amp; Learning System</h1>
+    <p class="section-intro">How Hermes builds a persistent, deepening understanding of you and your work across sessions.</p>
+  </div>
+
+  <h2>The Memory Stack</h2>
+
+  <p>Hermes has a multi-layered memory architecture. Each layer stores different types of information and operates at a different timescale:</p>
+
+  <div class="mermaid-wrap">
+    <span class="diag-title">Memory Layers — Fastest to Slowest Decay</span>
+    <div class="mermaid">
+flowchart TD
+    L1["⚡ Layer 1 — Context Window<br/>Python list in-memory · Current session only<br/>Auto-loaded into every prompt"]
+    L2["💾 Layer 2 — Session Store<br/>SQLite FTS5 · ~/.hermes/sessions.db<br/>Permanent · Keyword and semantic search"]
+    L3["🧠 Layer 3 — Semantic Memory Plugin<br/>Vector DB · Permanent · Recall by meaning<br/>Honcho / Mem0 / Holographic"]
+    L4["👤 Layer 4 — User Profile<br/>Honcho Dialectic · Long-term<br/>Auto-injected into every system prompt"]
+    L1 -- "slower to change" --> L2
+    L2 -- "deeper persistence" --> L3
+    L3 -- "slowest decay" --> L4
+    style L1 fill:#2563eb,stroke:none,color:#fff
+    style L2 fill:#7c3aed,stroke:none,color:#fff
+    style L3 fill:#0d9488,stroke:none,color:#fff
+    style L4 fill:#059669,stroke:none,color:#fff
+    </div>
+  </div>
+
+  <h2>Memory Backend Options</h2>
+
+  <p>The memory backend is a swappable plugin. Choose based on your needs:</p>
+
+  <table>
+    <thead><tr><th>Backend</th><th>Type</th><th>Best For</th><th>Setup</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Honcho</strong></td>
+        <td>Dialectic user modelling</td>
+        <td>Deep personal assistant use, learns your personality</td>
+        <td>API key (free tier)</td>
+      </tr>
+      <tr>
+        <td><strong>Mem0</strong></td>
+        <td>Vector DB (cloud)</td>
+        <td>Large memory stores, semantic search</td>
+        <td>API key</td>
+      </tr>
+      <tr>
+        <td><strong>Holographic</strong></td>
+        <td>Local graph DB</td>
+        <td>Fully private, relational memory</td>
+        <td>No API key needed</td>
+      </tr>
+      <tr>
+        <td><strong>Hindsight</strong></td>
+        <td>Short-term buffer</td>
+        <td>Session context, quick recall</td>
+        <td>No API key needed</td>
+      </tr>
+      <tr>
+        <td><strong>RetainDB</strong></td>
+        <td>Retention-based priority</td>
+        <td>Important facts surface more often over time</td>
+        <td>Minimal setup</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>The Session Search Engine</h2>
+
+  <p>Every conversation Hermes has is stored in a SQLite database with <strong>FTS5 full-text search</strong> indexing. This means you can search across every conversation you've ever had:</p>
+
+  <pre><code><span class="code-comment"># You can ask Hermes:</span>
+<span class="code-string">"What did I tell you about the Jenkins CI setup last month?"</span>
+<span class="code-comment"># Hermes uses session_search to find the relevant conversation</span>
+<span class="code-comment"># and recalls the exact context.</span></code></pre>
+
+  <p>FTS5 supports <strong>proximity searches</strong> (words near each other), <strong>phrase matching</strong>, and <strong>ranking by relevance</strong> — not just simple keyword matching. The LLM then summarises the relevant excerpts in natural language.</p>
+
+  <h2>The Self-Improving Skill Loop</h2>
+
+  <p>The most distinctive feature of Hermes is its ability to <strong>autonomously create and improve skills</strong> from experience:</p>
+
+  <div class="flow-steps">
+    <div class="flow-step">
+      <div class="flow-num">1</div>
+      <div class="flow-content">
+        <strong>Complex Task Detected</strong>
+        <p>When Hermes completes a multi-step task that took many tool calls, it identifies this as a "trajectory" worth saving.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">2</div>
+      <div class="flow-content">
+        <strong>Trajectory Saved</strong>
+        <p>The sequence of steps — tools used, decisions made, output format — is saved via <code>agent/trajectory.py</code>.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">3</div>
+      <div class="flow-content">
+        <strong>Skill Synthesised</strong>
+        <p>Hermes writes a Python script that encodes the workflow as a reusable skill with parameters (the variable parts you'd change each time).</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">4</div>
+      <div class="flow-content">
+        <strong>Skill Installed + Available</strong>
+        <p>The skill is saved to <code>~/.hermes/skills/</code> and immediately available as a slash command. Future invocations are fast and consistent.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">5</div>
+      <div class="flow-content">
+        <strong>Skill Improves Over Time</strong>
+        <p>Each time the skill is used, Hermes can refine it based on the outcome — correcting errors, adding edge case handling, and updating outputs.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout purple">
+    <span class="callout-icon">🌱</span>
+    <div class="callout-content">
+      <strong>Why This Matters</strong>
+      <p>Most AI assistants get no better over time — they're stateless. Hermes compounds: every task it completes either adds to its memory or becomes a reusable skill. After months of use, a Hermes instance personalised to your workflow is dramatically more efficient than a fresh one.</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════ SECTION 7 ═══ -->
+<div id="section-7" class="page-section">
+  <div class="section-header">
+    <span class="section-label">Section 7</span>
+    <h1 class="section-title">Multi-Platform Gateway</h1>
+    <p class="section-intro">How Hermes becomes available on 29+ messaging platforms simultaneously.</p>
+  </div>
+
+  <h2>Supported Platforms</h2>
+
+  <p>The gateway module allows a single Hermes instance to serve users across all major messaging platforms at once:</p>
+
+  <div class="platform-grid">
+    <div class="platform-pill">💬 Telegram</div>
+    <div class="platform-pill">🎮 Discord</div>
+    <div class="platform-pill">💼 Slack</div>
+    <div class="platform-pill">📱 WhatsApp</div>
+    <div class="platform-pill">📡 Signal</div>
+    <div class="platform-pill">💬 WeChat</div>
+    <div class="platform-pill">🐧 QQ</div>
+    <div class="platform-pill">🔔 DingTalk</div>
+    <div class="platform-pill">🪶 Feishu (Lark)</div>
+    <div class="platform-pill">🏠 Home Assistant</div>
+    <div class="platform-pill">📧 Email (SMTP)</div>
+    <div class="platform-pill">🔵 Matrix</div>
+    <div class="platform-pill">📟 IRC</div>
+    <div class="platform-pill">📢 Zulip</div>
+    <div class="platform-pill">📱 SMS (Twilio)</div>
+    <div class="platform-pill">+ 14 more</div>
+  </div>
+
+  <h2>How the Gateway Works</h2>
+
+  <div class="mermaid-wrap">
+    <span class="diag-title">Gateway Architecture</span>
+    <div class="mermaid">
+flowchart TD
+    subgraph GR ["🌉  GatewayRunner — gateway/run.py"]
+        subgraph PLAT ["Platform Adapters"]
+            TG["💬 Telegram"]
+            DC["🎮 Discord"]
+            SL["💼 Slack"]
+            WA["📱 WhatsApp"]
+            XX["+ 25 more platforms"]
+        end
+        MR["📨 Message Router<br/>process_message()"]
+        LRU["🗂️ LRU Agent Cache<br/>max 128 sessions · Idle TTL: 1 hour"]
+    end
+    AI(["🧠 AIAgent Instance — per session"])
+    TG --> MR
+    DC --> MR
+    SL --> MR
+    WA --> MR
+    XX --> MR
+    MR --> LRU
+    LRU --> AI
+    style TG fill:#7c3aed,stroke:none,color:#fff
+    style DC fill:#7c3aed,stroke:none,color:#fff
+    style SL fill:#7c3aed,stroke:none,color:#fff
+    style WA fill:#7c3aed,stroke:none,color:#fff
+    style MR fill:#2563eb,stroke:none,color:#fff
+    style LRU fill:#0d9488,stroke:none,color:#fff
+    style AI fill:#059669,stroke:none,color:#fff
+    style XX fill:#334155,stroke:#4b5563,color:#94a3b8
+    </div>
+  </div>
+
+  <h2>Session Persistence Across Platforms</h2>
+
+  <p>Each user gets their own persistent session stored in SQLite. Importantly, <strong>sessions are platform-aware but conversation-continuous</strong> — your Hermes assistant remembers previous conversations regardless of whether you last spoke to it via Telegram or Slack.</p>
+
+  <h2>The Cron Scheduler</h2>
+
+  <p>Hermes can schedule tasks to run automatically using standard cron expressions. The scheduler (<code>cron/scheduler.py</code>) integrates with the gateway to deliver results to any configured platform:</p>
+
+  <pre><code><span class="code-comment"># Examples of scheduled tasks</span>
+<span class="code-string">"0 9 * * 1-5"</span>    → Run every weekday at 9am
+<span class="code-string">"0 18 * * *"</span>     → Run every day at 6pm
+<span class="code-string">"*/30 * * * *"</span>  → Run every 30 minutes
+
+<span class="code-comment"># Usage from chat:</span>
+<span class="code-string">/cron set "daily at 8am, check my emails and send me a summary"</span>
+<span class="code-string">/cron set "every Monday at 9am, pull our sales data and make a report"</span></code></pre>
+
+  <div class="callout green">
+    <span class="callout-icon">⏰</span>
+    <div class="callout-content">
+      <strong>Natural Language Scheduling</strong>
+      <p>You don't need to know cron syntax. Tell Hermes "remind me every Friday afternoon to send the team update" and it converts it to the correct cron expression automatically.</p>
+    </div>
+  </div>
+
+  <h2>ACP Integration — IDE Support</h2>
+
+  <p>The <code>acp_adapter/</code> module implements the <strong>Agent Client Protocol</strong>, allowing Hermes to be used directly inside VS Code, Zed, and JetBrains IDEs. The adapter runs as a background server that editors communicate with via JSON-RPC — you get Hermes' full tool ecosystem (web search, file management, code execution) inside your editor without switching to the terminal.</p>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════ SECTION 8 ═══ -->
+<div id="section-8" class="page-section">
+  <div class="section-header">
+    <span class="section-label">Section 8</span>
+    <h1 class="section-title">Business Use Cases</h1>
+    <p class="section-intro">Real-world applications of Hermes Agent for organisations of all sizes.</p>
+  </div>
+
+  <div class="callout purple">
+    <span class="callout-icon">🏢</span>
+    <div class="callout-content">
+      <strong>Why Businesses Choose Self-Hosted AI</strong>
+      <p>Commercial AI tools send your data to third-party servers. For businesses handling sensitive customer data, financial records, or proprietary IP, self-hosted AI like Hermes provides the intelligence of frontier models with the data control of on-premises software.</p>
+    </div>
+  </div>
+
+  <div class="use-case">
+    <div class="use-case-header">
+      <div class="use-case-icon">📊</div>
+      <div class="use-case-title">
+        <h3>Business Intelligence &amp; Market Research</h3>
+        <p>Automating competitive intelligence gathering and market analysis</p>
+      </div>
+    </div>
+    <p>Hermes can continuously monitor competitors, industry news, and market signals — then synthesise findings into structured reports delivered to your team on a schedule.</p>
+    <div class="use-case-scenarios">
+      <div class="scenario">
+        <strong>Competitor Monitoring</strong>
+        <span>Schedule daily checks of competitors' websites, job postings, press releases, and social media for strategic signals</span>
+      </div>
+      <div class="scenario">
+        <strong>Market Reports</strong>
+        <span>Auto-generate weekly market summaries by pulling data from multiple sources, running analysis, and formatting for stakeholders</span>
+      </div>
+      <div class="scenario">
+        <strong>Pricing Intelligence</strong>
+        <span>Monitor competitor pricing changes and product launches, alerting the sales team in Slack when key changes occur</span>
+      </div>
+      <div class="scenario">
+        <strong>Research Synthesis</strong>
+        <span>Summarise long technical papers, industry reports, or regulatory updates into decision-ready briefs</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="use-case">
+    <div class="use-case-header">
+      <div class="use-case-icon">🤝</div>
+      <div class="use-case-title">
+        <h3>Customer Support Automation</h3>
+        <p>An always-on support agent that escalates intelligently</p>
+      </div>
+    </div>
+    <p>Deploy Hermes as a first-line support agent on Telegram, Slack, or your website. It handles common queries, looks up order details, and escalates complex issues to human agents with full context.</p>
+    <div class="use-case-scenarios">
+      <div class="scenario">
+        <strong>FAQ Handling</strong>
+        <span>Train Hermes on your documentation and have it answer product questions 24/7 across all your support channels</span>
+      </div>
+      <div class="scenario">
+        <strong>Order Lookup</strong>
+        <span>Connect to your database via custom tool — customers ask about order status and Hermes queries it in real-time</span>
+      </div>
+      <div class="scenario">
+        <strong>Ticket Triage</strong>
+        <span>Classify incoming support tickets, assign priority, and route to the right team — all automatically</span>
+      </div>
+      <div class="scenario">
+        <strong>Multi-lingual Support</strong>
+        <span>Handle support queries in any language the underlying LLM supports, responding in the customer's language</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="use-case">
+    <div class="use-case-header">
+      <div class="use-case-icon">⚙️</div>
+      <div class="use-case-title">
+        <h3>DevOps &amp; Engineering Automation</h3>
+        <p>AI-assisted development, operations, and incident response</p>
+      </div>
+    </div>
+    <p>Engineering teams can deploy Hermes as a DevOps assistant that monitors systems, diagnoses issues, drafts PR descriptions, reviews code, and can take corrective actions when configured to do so.</p>
+    <div class="use-case-scenarios">
+      <div class="scenario">
+        <strong>Code Review</strong>
+        <span>Automatically review PRs for security issues, code quality, and style — posting comments directly on GitHub</span>
+      </div>
+      <div class="scenario">
+        <strong>Incident Response</strong>
+        <span>When an alert fires, Hermes analyses logs, checks related services, and posts a diagnostic summary to the ops Slack channel</span>
+      </div>
+      <div class="scenario">
+        <strong>Documentation Generation</strong>
+        <span>Read new code commits and auto-update documentation, changelogs, and API references</span>
+      </div>
+      <div class="scenario">
+        <strong>Deployment Automation</strong>
+        <span>Manage CI/CD pipeline steps via terminal commands, handling common deployment failures with predefined runbooks</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="use-case">
+    <div class="use-case-header">
+      <div class="use-case-icon">📋</div>
+      <div class="use-case-title">
+        <h3>Operations &amp; Workflow Automation</h3>
+        <p>Eliminating repetitive operational tasks across departments</p>
+      </div>
+    </div>
+    <div class="use-case-scenarios">
+      <div class="scenario">
+        <strong>Report Generation</strong>
+        <span>Pull data from databases, generate formatted reports (PDF, Excel, slides), and distribute to stakeholders on schedule</span>
+      </div>
+      <div class="scenario">
+        <strong>Meeting Intelligence</strong>
+        <span>Process meeting recordings/transcripts: extract action items, decisions, and deadlines; distribute follow-up summaries</span>
+      </div>
+      <div class="scenario">
+        <strong>Contract Review</strong>
+        <span>Analyse contracts for key clauses, risks, and deadlines — surface important items for legal team review</span>
+      </div>
+      <div class="scenario">
+        <strong>Data Pipeline</strong>
+        <span>Schedule data processing jobs, transform formats, validate data quality, and alert on anomalies</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="use-case">
+    <div class="use-case-header">
+      <div class="use-case-icon">🔒</div>
+      <div class="use-case-title">
+        <h3>Compliance &amp; Security Monitoring</h3>
+        <p>Automated risk detection and regulatory compliance checking</p>
+      </div>
+    </div>
+    <div class="use-case-scenarios">
+      <div class="scenario">
+        <strong>Policy Compliance</strong>
+        <span>Regularly scan systems against security policies and generate compliance reports for auditors</span>
+      </div>
+      <div class="scenario">
+        <strong>Vulnerability Scanning</strong>
+        <span>Run security scans via terminal tools, summarise findings in plain English, and create prioritised remediation tickets</span>
+      </div>
+      <div class="scenario">
+        <strong>GDPR/Data Audits</strong>
+        <span>Scan codebases and databases for PII handling issues; generate data inventory reports</span>
+      </div>
+      <div class="scenario">
+        <strong>Regulatory Updates</strong>
+        <span>Monitor regulatory sources for changes affecting your industry; summarise and alert legal/compliance teams</span>
+      </div>
+    </div>
+  </div>
+
+  <h2>Deployment Model for Businesses</h2>
+
+  <div class="highlight-band">
+    <h3>Recommended Enterprise Setup</h3>
+    <ul class="checklist">
+      <li>Deploy Hermes on a private VPS or internal server using Docker</li>
+      <li>Configure AWS Bedrock as the LLM provider for maximum data sovereignty</li>
+      <li>Enable Slack and email gateways for company-wide access</li>
+      <li>Store all sessions in an encrypted SQLite database on internal storage</li>
+      <li>Use Docker environment backend to isolate code execution</li>
+      <li>Set up scheduled skills for daily/weekly reporting workflows</li>
+      <li>Configure per-user memory profiles for personalised assistance</li>
+    </ul>
+  </div>
+
+  <div class="callout orange">
+    <span class="callout-icon">💰</span>
+    <div class="callout-content">
+      <strong>Cost Consideration</strong>
+      <p>Hermes itself is free. You pay only for the LLM API calls you make. With prompt caching enabled (Anthropic models), system prompt costs are reduced by up to 80%. For high-volume use, local/open-source models (Ollama + Llama) bring API costs to zero.</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════ SECTION 9 ═══ -->
+<div id="section-9" class="page-section">
+  <div class="section-header">
+    <span class="section-label">Section 9</span>
+    <h1 class="section-title">Content Creator Use Cases</h1>
+    <p class="section-intro">How Hermes accelerates content workflows for YouTubers, podcasters, bloggers, and social media creators.</p>
+  </div>
+
+  <blockquote>
+    "The biggest bottleneck for content creators isn't creativity — it's the operational overhead: research, writing, editing, scheduling, and analytics. Hermes can handle the entire operational layer, freeing you to focus on the creative work only you can do."
+  </blockquote>
+
+  <div class="use-case">
+    <div class="use-case-header">
+      <div class="use-case-icon">🎬</div>
+      <div class="use-case-title">
+        <h3>YouTube &amp; Video Content</h3>
+        <p>From idea to upload — automating the full video content pipeline</p>
+      </div>
+    </div>
+    <div class="use-case-scenarios">
+      <div class="scenario">
+        <strong>Content Research</strong>
+        <span>Give Hermes a topic — it searches YouTube trends, reads top-ranking articles, and synthesises a comprehensive research brief with key talking points</span>
+      </div>
+      <div class="scenario">
+        <strong>Script Writing</strong>
+        <span>Based on the research brief, generate a full video script in your tone and style (it learns your style from past scripts you share)</span>
+      </div>
+      <div class="scenario">
+        <strong>Thumbnail Concepts</strong>
+        <span>Generate image prompts for thumbnail designs and create draft thumbnails via image generation tools</span>
+      </div>
+      <div class="scenario">
+        <strong>Metadata Optimisation</strong>
+        <span>Write SEO-optimised titles, descriptions, and tag lists for each video based on keyword research</span>
+      </div>
+      <div class="scenario">
+        <strong>Transcript Repurposing</strong>
+        <span>Turn video transcripts into blog posts, Twitter threads, LinkedIn articles, and email newsletters automatically</span>
+      </div>
+      <div class="scenario">
+        <strong>Analytics Summary</strong>
+        <span>Scheduled weekly report: pull YouTube analytics data and summarise performance trends with recommendations</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="use-case">
+    <div class="use-case-header">
+      <div class="use-case-icon">🎙️</div>
+      <div class="use-case-title">
+        <h3>Podcasting</h3>
+        <p>Automate the production and distribution workflow</p>
+      </div>
+    </div>
+    <div class="use-case-scenarios">
+      <div class="scenario">
+        <strong>Guest Research</strong>
+        <span>Given a guest's name and LinkedIn, compile a comprehensive briefing: background, notable work, talking points, suggested questions</span>
+      </div>
+      <div class="scenario">
+        <strong>Show Notes</strong>
+        <span>From a transcript or recording, generate structured show notes with timestamps, key quotes, and resource links</span>
+      </div>
+      <div class="scenario">
+        <strong>Episode Summaries</strong>
+        <span>Write different length summaries (tweet, paragraph, full description) for different distribution channels</span>
+      </div>
+      <div class="scenario">
+        <strong>Clip Identification</strong>
+        <span>Analyse transcripts to identify the best 60-second clips for social media promotion</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="use-case">
+    <div class="use-case-header">
+      <div class="use-case-icon">✍️</div>
+      <div class="use-case-title">
+        <h3>Blogging &amp; Written Content</h3>
+        <p>Research, writing, and SEO in a single workflow</p>
+      </div>
+    </div>
+    <div class="use-case-scenarios">
+      <div class="scenario">
+        <strong>Topic Ideation</strong>
+        <span>Research trending topics in your niche, identify content gaps versus competitors, and suggest a 3-month content calendar</span>
+      </div>
+      <div class="scenario">
+        <strong>SEO Research</strong>
+        <span>Find the best keywords for a topic, analyse top-ranking posts for structure and coverage, create an SEO-informed outline</span>
+      </div>
+      <div class="scenario">
+        <strong>First Draft</strong>
+        <span>Generate a detailed first draft from your outline — in your voice and style, with proper sourcing and internal link suggestions</span>
+      </div>
+      <div class="scenario">
+        <strong>Content Refreshing</strong>
+        <span>Identify older posts that need updating, research what's changed, and produce an updated version with new stats and sources</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="use-case">
+    <div class="use-case-header">
+      <div class="use-case-icon">📱</div>
+      <div class="use-case-title">
+        <h3>Social Media Management</h3>
+        <p>A complete social media presence — researched, written, and scheduled</p>
+      </div>
+    </div>
+    <div class="use-case-scenarios">
+      <div class="scenario">
+        <strong>Content Repurposing</strong>
+        <span>Turn a single YouTube video or blog post into a week's worth of social content: Twitter threads, Instagram carousels, LinkedIn posts, TikTok scripts</span>
+      </div>
+      <div class="scenario">
+        <strong>Trend Monitoring</strong>
+        <span>Daily check of trending topics in your niche — surface opportunities to post timely, relevant content before the trend peaks</span>
+      </div>
+      <div class="scenario">
+        <strong>Engagement Responses</strong>
+        <span>Draft responses to common comment types in your voice — you review and approve, Hermes handles the writing</span>
+      </div>
+      <div class="scenario">
+        <strong>Analytics Digest</strong>
+        <span>Weekly summary of best-performing content across platforms with actionable insights about what to create more of</span>
+      </div>
+    </div>
+  </div>
+
+  <h2>The Content Creator Workflow — End to End</h2>
+
+  <p>Here's how a creator might use Hermes to produce a single piece of content from zero to published:</p>
+
+  <div class="flow-steps">
+    <div class="flow-step">
+      <div class="flow-num">1</div>
+      <div class="flow-content">
+        <strong>Idea + Research (15 min → 2 min)</strong>
+        <p>Type: "Research 'beginner photography tips' for a YouTube video." Hermes searches YouTube, reads top articles, checks Google Trends, and returns a structured brief.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">2</div>
+      <div class="flow-content">
+        <strong>Script Draft (4 hours → 20 min)</strong>
+        <p>Type: "Write a 10-minute YouTube script on this topic in my conversational style." Hermes references past scripts you've shared and writes a full draft.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">3</div>
+      <div class="flow-content">
+        <strong>You Film &amp; Edit (Your Creative Work)</strong>
+        <p>The part only you can do — the actual filming, performance, and editing.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">4</div>
+      <div class="flow-content">
+        <strong>Metadata + Thumbnail (2 hours → 10 min)</strong>
+        <p>Share the transcript: Hermes generates SEO title options, a description, tags, and thumbnail concepts to choose from.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">5</div>
+      <div class="flow-content">
+        <strong>Distribution (1 hour → 5 min)</strong>
+        <p>Hermes repurposes the transcript into a Twitter thread, LinkedIn post, Instagram caption, and email newsletter — all in your voice.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout green">
+    <span class="callout-icon">⏱️</span>
+    <div class="callout-content">
+      <strong>Time Savings in Practice</strong>
+      <p>A typical content creator spends 6–8 hours on research, writing, and distribution per piece. With Hermes handling the operational work, this can drop to under 1 hour — meaning you can produce 6–8× more content, or reclaim those hours for higher-leverage creative work.</p>
+    </div>
+  </div>
+
+  <h2>Personalisation: Teaching Hermes Your Voice</h2>
+
+  <p>The memory system means Hermes learns your style over time. You can accelerate this by:</p>
+
+  <ul>
+    <li><strong>Sharing past work</strong> — Give Hermes your best blog posts or scripts and say "this is my writing style — remember it."</li>
+    <li><strong>Giving feedback</strong> — When it writes something off-brand, correct it. The correction is stored in memory and applied to all future drafts.</li>
+    <li><strong>Creating style skills</strong> — You can save a "write in my voice" skill with all your style notes encoded, invocable with a single slash command.</li>
+  </ul>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════ SECTION 10 ═══ -->
+<div id="section-10" class="page-section">
+  <div class="section-header">
+    <span class="section-label">Section 10</span>
+    <h1 class="section-title">Developer Guide &amp; Getting Started</h1>
+    <p class="section-intro">From installation to building custom tools and skills.</p>
+  </div>
+
+  <h2>Installation</h2>
+
+  <h3>Quick Install (Recommended)</h3>
+  <pre><code><span class="code-comment"># One-line install script</span>
+curl -fsSL https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.sh | bash
+
+<span class="code-comment"># After install:</span>
+source ~/.bashrc  <span class="code-comment"># or ~/.zshrc</span>
+hermes setup      <span class="code-comment"># interactive setup wizard</span>
+hermes            <span class="code-comment"># start chatting!</span></code></pre>
+
+  <h3>Development Install (Full Control)</h3>
+  <pre><code>git clone --recurse-submodules https://github.com/NousResearch/hermes-agent.git
+cd hermes-agent
+
+<span class="code-comment"># Using uv (recommended Python package manager)</span>
+uv venv venv --python 3.11
+source venv/bin/activate
+uv pip install -e <span class="code-string">".[all,dev]"</span>
+
+<span class="code-comment"># OR using pip</span>
+python -m venv venv
+source venv/bin/activate
+pip install -e <span class="code-string">".[all,dev]"</span>
+
+<span class="code-comment"># Run initial setup</span>
+hermes setup</code></pre>
+
+  <h2>Core Commands</h2>
+
+  <table>
+    <thead><tr><th>Command</th><th>What It Does</th></tr></thead>
+    <tbody>
+      <tr><td><code>hermes</code></td><td>Start interactive CLI chat session</td></tr>
+      <tr><td><code>hermes --tui</code></td><td>Launch the Terminal UI (React/Ink)</td></tr>
+      <tr><td><code>hermes setup</code></td><td>Run interactive configuration wizard</td></tr>
+      <tr><td><code>hermes model</code></td><td>Switch AI model/provider</td></tr>
+      <tr><td><code>hermes tools</code></td><td>Enable/disable tools</td></tr>
+      <tr><td><code>hermes skills</code></td><td>Browse, install, and manage skills</td></tr>
+      <tr><td><code>hermes gateway</code></td><td>Configure and start messaging gateway</td></tr>
+      <tr><td><code>hermes cron list</code></td><td>View scheduled tasks</td></tr>
+      <tr><td><code>hermes status</code></td><td>System health check</td></tr>
+      <tr><td><code>hermes doctor</code></td><td>Diagnose configuration issues</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Useful Slash Commands (In Chat)</h2>
+
+  <table>
+    <thead><tr><th>Command</th><th>What It Does</th></tr></thead>
+    <tbody>
+      <tr><td><code>/model provider:model</code></td><td>Switch model mid-conversation</td></tr>
+      <tr><td><code>/skills</code></td><td>Browse and install skills</td></tr>
+      <tr><td><code>/retry</code></td><td>Retry the last message</td></tr>
+      <tr><td><code>/compress</code></td><td>Manually compress conversation context</td></tr>
+      <tr><td><code>/clear</code></td><td>Start a fresh conversation</td></tr>
+      <tr><td><code>/<skill-name></code></td><td>Run an installed skill</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Building a Custom Tool</h2>
+
+  <p>Creating a new tool for Hermes requires a single Python file in the <code>tools/</code> directory:</p>
+
+  <pre><code><span class="code-comment"># tools/my_custom_tool.py</span>
+<span class="code-keyword">from</span> tools.registry <span class="code-keyword">import</span> registry
+<span class="code-keyword">import</span> httpx
+
+<span class="code-func">@registry.register</span>(
+    name=<span class="code-string">"get_stock_price"</span>,
+    description=<span class="code-string">"Get the current stock price for a ticker symbol"</span>,
+    parameters={
+        <span class="code-string">"ticker"</span>: {
+            <span class="code-string">"type"</span>: <span class="code-string">"string"</span>,
+            <span class="code-string">"description"</span>: <span class="code-string">"Stock ticker symbol, e.g. AAPL"</span>
+        }
+    }
+)
+<span class="code-keyword">async def</span> <span class="code-func">get_stock_price</span>(ticker: str) -> str:
+    <span class="code-keyword">async with</span> httpx.AsyncClient() <span class="code-keyword">as</span> client:
+        resp = <span class="code-keyword">await</span> client.get(
+            f<span class="code-string">"https://api.example.com/price/{ticker}"</span>
+        )
+    data = resp.json()
+    <span class="code-keyword">return</span> f<span class="code-string">"${data['price']} USD ({ticker})"</span></code></pre>
+
+  <p>That's it. On next run, the tool appears in the LLM's tool catalogue automatically.</p>
+
+  <h2>Building a Custom Skill</h2>
+
+  <p>Skills live in <code>~/.hermes/skills/&lt;skill-name&gt;/</code> and consist of:</p>
+
+  <pre><code><span class="code-comment"># ~/.hermes/skills/weekly-report/SKILL.md</span>
+---
+name: weekly-report
+description: Generate a weekly business performance report
+trigger: /weekly-report
+---
+Pull the last 7 days of sales data, compare to the previous week,
+highlight top performers, and format as a Slack-ready summary.
+
+<span class="code-comment"># ~/.hermes/skills/weekly-report/main.py</span>
+<span class="code-keyword">import</span> sys
+
+args = sys.argv[<span class="code-num">1</span>:]
+week = args[<span class="code-num">0</span>] <span class="code-keyword">if</span> args <span class="code-keyword">else</span> <span class="code-string">"current"</span>
+
+<span class="code-keyword">print</span>(f<span class="code-string">"Generating weekly report for: {week}"</span>)
+<span class="code-keyword">print</span>(<span class="code-string">"Focus on: revenue, top SKUs, and week-over-week delta."</span>)</code></pre>
+
+  <h2>Key Files Reference</h2>
+
+  <table>
+    <thead><tr><th>File / Directory</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td><code>run_agent.py</code></td><td>Core AIAgent class (12K lines) — main conversation engine</td></tr>
+      <tr><td><code>cli.py</code></td><td>Interactive CLI — Rich + prompt_toolkit (10.8K lines)</td></tr>
+      <tr><td><code>hermes_cli/main.py</code></td><td>All <code>hermes</code> CLI subcommands</td></tr>
+      <tr><td><code>tools/registry.py</code></td><td>Tool registration and dispatch system</td></tr>
+      <tr><td><code>hermes_state.py</code></td><td>SQLite session store with FTS5 search</td></tr>
+      <tr><td><code>gateway/run.py</code></td><td>Multi-platform messaging gateway</td></tr>
+      <tr><td><code>agent/prompt_builder.py</code></td><td>Dynamic system prompt assembly</td></tr>
+      <tr><td><code>agent/context_compressor.py</code></td><td>Automatic context window management</td></tr>
+      <tr><td><code>cron/scheduler.py</code></td><td>Cron job scheduler</td></tr>
+      <tr><td><code>skills/</code></td><td>Built-in skills (27 categories)</td></tr>
+      <tr><td><code>plugins/memory/</code></td><td>Memory backend plugins (8 options)</td></tr>
+      <tr><td><code>~/.hermes/config.yaml</code></td><td>Your personal configuration</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Technology Stack Summary</h2>
+
+  <div class="card-grid">
+    <div class="card">
+      <h3>🐍 Python Core</h3>
+      <p><code>openai</code>, <code>anthropic</code>, <code>rich</code>, <code>prompt_toolkit</code>, <code>pydantic</code>, <code>httpx</code>, <code>sqlite3</code>, <code>asyncio</code></p>
+    </div>
+    <div class="card">
+      <h3>⚛️ TypeScript TUI</h3>
+      <p>React 19, Ink (terminal renderer), Vite, JSON-RPC protocol, TypeScript</p>
+    </div>
+    <div class="card">
+      <h3>🗄️ Storage</h3>
+      <p>SQLite with FTS5 for sessions, YAML for config, optional vector DBs for semantic memory</p>
+    </div>
+    <div class="card">
+      <h3>📦 Packaging</h3>
+      <p><code>uv</code> for Python deps, <code>npm</code> for Node, Docker for containerisation, Nix for reproducibility</p>
+    </div>
+  </div>
+
+  <div class="doc-footer">
+    <span>Hermes Agent v0.10.0 · Built by Nous Research · MIT License</span>
+    <span>github.com/NousResearch/hermes-agent</span>
+  </div>
+</div>
+
+<script type="module">
+import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+mermaid.initialize({
+  startOnLoad: true,
+  securityLevel: 'loose',
+  theme: 'base',
+  themeVariables: {
+    darkMode: true,
+    background: '#1e293b',
+    primaryColor: '#7c3aed',
+    primaryTextColor: '#ffffff',
+    primaryBorderColor: '#5b21b6',
+    lineColor: '#a78bfa',
+    secondaryColor: '#2563eb',
+    tertiaryColor: '#0d9488',
+    clusterBkg: '#0f172a',
+    clusterBorder: '#334155',
+    titleColor: '#a78bfa',
+    edgeLabelBackground: '#1e293b',
+    fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, sans-serif',
+    fontSize: '13px',
+  },
+  flowchart: { curve: 'basis', padding: 24, useMaxWidth: true, htmlLabels: true },
+});
+</script>
+</body>
+</html>
