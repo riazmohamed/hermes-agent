@@ -35,12 +35,16 @@ hermes          # after global install
 
 ## Architecture
 
-- **Adapters** (`agent/*_adapter.py`): per-provider API wrappers (Anthropic, Gemini, OpenAI-compat, Moonshot…)
+- **Adapters** (`agent/*_adapter.py`): per-provider API wrappers (Anthropic, Gemini, OpenAI-compat, Moonshot, Bedrock, Codex Responses…)
 - **Credential pool** (`agent/credential_pool.py`, `agent/credential_sources.py`): multi-key rotation
-- **Skills system**: agent creates/improves skills; bundled skills live in `skills/`, optional ones in `optional-skills/`
+- **Skills system**: agent creates/improves skills; bundled skills live in `skills/`, optional ones in `optional-skills/`. Skill input preprocessing in `agent/skill_preprocessing.py`.
 - **Toolsets** (`toolsets.py`, `toolset_distributions.py`): group tools by capability, configurable per session
-- **Context compressor** (`agent/context_compressor.py`): keeps context within model limits
+- **Context compressor** (`agent/context_compressor.py`) + **context engine** (`agent/context_engine.py`): keep context within model limits
+- **Image routing** (`agent/image_routing.py`): routes image inputs across multimodal-capable providers
+- **Onboarding** (`agent/onboarding.py`): first-run setup flow
+- **Nous rate guard** (`agent/nous_rate_guard.py`): rate-limit handling for Nous-hosted endpoints
 - **ACP adapter** (`acp_adapter/`): Agent Communication Protocol support
+- **Docker**: `Dockerfile` + `docker-compose.yml` for containerized runs
 
 ## Dev conventions
 
@@ -57,11 +61,17 @@ hermes          # after global install
 
 ## Build notes
 
-- `pyproject.toml` extras: `[dev]`, `[all]`, `[modal]`, `[daytona]`, `[messaging]`, `[voice]`, `[tts-premium]`, `[cron]`, `[slack]`, `[matrix]`, `[cli]`
+- `pyproject.toml` extras: `[dev]`, `[all]`, `[modal]`, `[daytona]`, `[messaging]`, `[voice]`, `[tts-premium]`, `[cron]`, `[slack]`, `[matrix]`, `[cli]`, `[google]`, `[mcp]`, `[acp]`, `[honcho]`, `[homeassistant]`, `[sms]`, `[pty]`, `[mistral]`, `[bedrock]`, `[web]`, `[dingtalk]`, `[feishu]`, `[termux]`, `[rl]`, `[yc-bench]`
+- `[matrix]` extra now includes `aiohttp-socks` for SOCKS proxy support
 - `package.json` installs Node browser tools (`@askjo/camofox-browser`, `agent-browser`) — requires Node ≥ 20
 - `uv.lock` is the authoritative lock file
+- `AGENTS.md` — guidance for AI agents contributing to the repo
 
 ## Study branch extras
 
 - `hermes-study-guide.html` — 10-section HTML guide with Mermaid architecture diagrams
 - `Hermes-Agent-Study-Guide.pdf` — PDF export of the study guide
+
+## Last sync
+
+- 2026-04-28 — merged 745 commits from `main` into `study`; regenerated `uv.lock`; rebuilt via `uv pip install -e ".[dev]"`
