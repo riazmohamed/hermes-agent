@@ -44,7 +44,12 @@ hermes          # after global install
 - **Onboarding** (`agent/onboarding.py`): first-run setup flow
 - **Nous rate guard** (`agent/nous_rate_guard.py`): rate-limit handling for Nous-hosted endpoints
 - **ACP adapter** (`acp_adapter/`): Agent Communication Protocol support
-- **Docker**: `Dockerfile` + `docker-compose.yml` for containerized runs
+- **Curator** (`agent/curator.py`, `hermes_cli/curator.py`): per-run reports written to `logs/curator/` (`run.json` + `REPORT.md`)
+- **Runtime footer** (`gateway/runtime_footer.py`): replaced the old `gateway/builtin_hooks/boot_md.py` boot-MD hook
+- **Skill usage tracking** (`tools/skill_usage.py`): records skill invocation telemetry
+- **LM Studio reasoning** (`agent/lmstudio_reasoning.py`): reasoning support for LM Studio-hosted models
+- **Browser connect CLI** (`hermes_cli/browser_connect.py`): `hermes` subcommand for connecting browser tools
+- **Docker**: `Dockerfile` + `docker-compose.yml` for containerized runs (now runs as host user to avoid root-owned bind mounts)
 
 ## Dev conventions
 
@@ -75,3 +80,4 @@ hermes          # after global install
 ## Last sync
 
 - 2026-04-28 — merged 745 commits from `main` into `study`; regenerated `uv.lock`; rebuilt via `uv pip install -e ".[dev]"`
+- 2026-04-29 — synced fork `main` with upstream `NousResearch/hermes-agent` (143 commits) and merged into `study`; added curator/runtime-footer/skill-usage/lmstudio-reasoning/browser-connect modules; rebuilt via `uv pip install -e ".[dev]"`
