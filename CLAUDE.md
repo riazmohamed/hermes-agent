@@ -4,7 +4,7 @@
 
 Hermes Agent is a self-improving AI agent by Nous Research. It creates skills from experience, improves them during use, and runs on local/cloud/serverless backends. Supports 200+ models via OpenRouter and others.
 
-Current version: **0.11.0**
+Current version: **0.12.0** (released 2026-04-30 — see `RELEASE_v0.12.0.md`)
 
 ## Install & run
 
@@ -49,7 +49,15 @@ hermes          # after global install
 - **Skill usage tracking** (`tools/skill_usage.py`): records skill invocation telemetry
 - **LM Studio reasoning** (`agent/lmstudio_reasoning.py`): reasoning support for LM Studio-hosted models
 - **Browser connect CLI** (`hermes_cli/browser_connect.py`): `hermes` subcommand for connecting browser tools
-- **Docker**: `Dockerfile` + `docker-compose.yml` for containerized runs (now runs as host user to avoid root-owned bind mounts)
+- **Memory provider** (`agent/memory_provider.py`): pluggable memory backend abstraction (alongside `agent/memory_manager.py`)
+- **Error classifier** (`agent/error_classifier.py`): centralized provider-error categorization
+- **Auxiliary client** (`agent/auxiliary_client.py`): side-channel LLM calls (curation, summarization) with transport autodetection
+- **Platform registry** (`gateway/platform_registry.py`): central registry for gateway platform adapters; out-of-tree platforms (Teams, IRC) live under `plugins/platforms/`
+- **Signal rate limit** (`gateway/platforms/signal_rate_limit.py`): rate-limit handling for the Signal gateway adapter
+- **Achievements plugin** (`plugins/hermes-achievements/`): bundled dashboard plugin tracking skill/agent achievements
+- **ComfyUI skill** (`skills/creative/comfyui/`): bundled skill for ComfyUI workflow generation and execution
+- **Hermes CLI** (`hermes_cli/`): split into focused subcommand modules — `_parser.py`, `relaunch.py`, `vercel_auth.py`, plus existing `auth*`, `curator`, `doctor`, `gateway`, `models`, `platforms`, `plugins*`, `profiles`, `providers`, `setup`, `status`, etc.
+- **Docker**: `Dockerfile` + `docker-compose.yml` for containerized runs (runs as host user to avoid root-owned bind mounts)
 
 ## Dev conventions
 
@@ -81,3 +89,4 @@ hermes          # after global install
 
 - 2026-04-28 — merged 745 commits from `main` into `study`; regenerated `uv.lock`; rebuilt via `uv pip install -e ".[dev]"`
 - 2026-04-29 — synced fork `main` with upstream `NousResearch/hermes-agent` (143 commits) and merged into `study`; added curator/runtime-footer/skill-usage/lmstudio-reasoning/browser-connect modules; rebuilt via `uv pip install -e ".[dev]"`
+- 2026-04-30 — merged 236 commits from `main` into `study` (release v0.12.0); resolved `uv.lock` conflict (took main); added platform_registry / memory_provider / error_classifier / auxiliary_client / signal_rate_limit / achievements plugin / ComfyUI skill / Teams + IRC platform plugins; rebuilt via `uv pip install -e ".[dev]"` → hermes-agent 0.11.0 → 0.12.0
